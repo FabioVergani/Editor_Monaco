@@ -1,0 +1,10 @@
+<!DOCTYPE html><html><head><meta charset='UTF-8'><style>
+html, body,#container {position: absolute;left:0;top:0;width:100%;height:100%;margin: 0;padding: 0;overflow: hidden;}
+</style><title>Monaco 0.12.0</title></head><body><div id="container"></div>
+<script src='https://unpkg.com/monaco-editor@0.12.0/min/vs/loader.js'></script>
+<script >
+require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@0.12.0/min/vs' } });
+window.MonacoEnvironment = { getWorkerUrl: function getWorkerUrl() {return proxy;} };
+var proxy = URL.createObjectURL(new Blob(['\n\tself.MonacoEnvironment = {\n\t\tbaseUrl: \'https://unpkg.com/monaco-editor@0.12.0/min/\'\n\t};\n\timportScripts(\'https://unpkg.com/monaco-editor@0.12.0/min/vs/base/worker/workerMain.js\');\n'], { type: 'text/javascript' }));
+require(["vs/editor/editor.main"], function () {var editor = monaco.editor.create(document.getElementById('container'), {value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),language: 'javascript',theme: 'vs-dark'});});
+</script></body></html>
